@@ -20,32 +20,65 @@
         https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.3/html-single/Development_Guide
     -->
     <repositories>
+        <!-- keep this repository the first -->
         <repository>
-            <id>redhat-techpreview-all-repository</id>
-            <url>https://maven.repository.redhat.com/techpreview/all/</url>
+            <id>jboss-public-maven-repository</id>
+            <name>JBoss Public Maven Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
             </snapshots>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>redhat-ga-maven-repository</id>
+            <name>Red Hat GA Maven Repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
         </repository>
     </repositories>
-
     <pluginRepositories>
+        <!-- keep this repository the first -->
         <pluginRepository>
-            <id>redhat-techpreview-all-repository</id>
-            <url>https://maven.repository.redhat.com/techpreview/all/</url>
+            <id>jboss-public-maven-repository</id>
+            <name>JBoss Public Maven Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>redhat-ga-maven-repository</id>
+            <name>Red Hat GA Maven Repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
 
     <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <!-- Explicitly declaring the source encoding eliminates the following 
             message: -->
         <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
@@ -65,47 +98,21 @@
             line below to use version 1.0.4.Final-redhat-9 which is a release certified 
             to work with JBoss EAP 6.2. It requires you have access to the JBoss EAP 6.2
             maven repository. -->
-        <version.jboss.bom.eap>6.3.2.GA</version.jboss.bom.eap>
-        <version.jboss.bom.wfk>2.7.0-redhat-1</version.jboss.bom.wfk>
+            <version.server.bom>8.0.0.GA-redhat-00009</version.server.bom>
         <buildhelper.plugin.version>1.7</buildhelper.plugin.version>
     </properties>
-
     <dependencyManagement>
         <dependencies>
-            <!-- JBoss distributes a complete set of Java EE 6 APIs including 
-                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
-                a collection) of artifacts. We use this here so that we always get the correct 
-                versions of artifacts. Here we use the jboss-javaee-6.0-with-tools stack 
-                (you can read this as the JBoss stack of the Java EE 6 APIs, with some extras 
-                tools for your project, such as Arquillian for testing), the jboss-javaee-6.0-with-hibernate 
-                stack (you can read this as the JBoss stack of the Java EE 6 APIs, with extras 
-                from the Hibernate family of projects), and the jboss-javaee-6.0-with-resteasy
-                stack (you can read this as the JBoss stack of the Java EE 6 APIs, with extras
-                from the RESTEasy project). -->
+            <!-- importing the ee-with-tools BOM adds specs and other useful artifacts as managed dependencies -->
             <dependency>
-                <groupId>org.jboss.bom.wfk</groupId>
-                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-                <version>${version.jboss.bom.wfk}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.bom.eap</groupId>
-                <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
-                <version>${version.jboss.bom.eap}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.bom.eap</groupId>
-                <artifactId>jboss-javaee-6.0-with-resteasy</artifactId>
-                <version>${version.jboss.bom.eap}</version>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-eap-ee-with-tools</artifactId>
+                <version>${version.server.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
 
         <!-- First declare the APIs we depend on and need for compilation. 
@@ -114,60 +121,61 @@
         <!-- Import the CDI API, we use provided scope as the API is included 
             in JBoss EAP -->
         <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
         
         <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
             <scope>provided</scope>
         </dependency>
         
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
             <scope>provided</scope>
         </dependency>
        
         <!-- Import the Common Annotations API (JSR-250), we use provided 
             scope as the API is included in JBoss EAP -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.annotation</groupId>
-            <artifactId>jboss-annotations-api_1.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
+            <dependency>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <scope>provided</scope>
+            </dependency>
 
         <!-- Import the JAX-RS API, we use provided scope as the API is included 
             in JBoss EAP -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.ws.rs</groupId>
-            <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
+            <dependency>
+                <groupId>jakarta.ws.rs</groupId>
+                <artifactId>jakarta.ws.rs-api</artifactId>
+                <scope>provided</scope>
+            </dependency>
+    
 
         <!-- Import the JPA API, we use provided scope as the API is included 
             in JBoss EAP -->
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
+            <dependency>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
+                <scope>provided</scope>
+            </dependency>
 
         <!-- Import the EJB API, we use provided scope as the API is included 
             in JBoss EAP -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
+            <dependency>
+                <groupId>jakarta.ejb</groupId>
+                <artifactId>jakarta.ejb-api</artifactId>
+                <scope>provided</scope>
+            </dependency>
 
         <!-- Import the Servlet API, we use provided scope as the API is 
             included in JBoss EAP -->
         <dependency>
-            <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -175,15 +183,9 @@
         <!-- Provides portable constraints such as @Email -->
         <!-- Hibernate Validator is shipped in JBoss EAP -->
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator-cdi</artifactId>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
 
@@ -192,7 +194,7 @@
         <!-- Annotation processor to generate the JPA 2.0 metamodel classes 
             for typesafe criteria queries -->
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -228,17 +230,22 @@
 
         <!-- RESTEasy dependencies that bring in Jackson Core and RESTEasy APIs+SPIs, which we use for
             fine tuning the content of the JSON responses -->
+        <!-- <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson2-provider</artifactId>
+            <scope>provided</scope>
+        </dependency> -->
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jackson-provider</artifactId>
+            <artifactId>resteasy-client</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jaxrs</artifactId>
-            <scope>provided</scope>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.4.0</version>
         </dependency>
-
+        
     </dependencies>
 
     <build>
@@ -254,13 +261,13 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>2.3.1</version>
                     <configuration>
-                        <source>1.6</source>
-                        <target>1.6</target>
+                        <source>1.7</source>
+                        <target>1.7</target>
                     </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>2.1.1</version>
+                    <version>3.3.1</version>
                     <configuration>
                     	<failOnMissingWebXml>false</failOnMissingWebXml>
                         <archive>

@@ -694,9 +694,9 @@ image::gfx/introduction/source_organize_imports.png[]
 
 Some of the class names are not unique. Eclipse will prompt you with any decisions around what class is intended. Select the following:
 
-* `javax.ws.rs.core.MediaType`
+* `jakarta.ws.rs.core.MediaType`
 * `org.jboss.examples.ticketmonster.model.Event`
-* `javax.ws.rs.Produces`
+* `jakarta.ws.rs.Produces`
 * `java.util.List`
 * `java.inject.Inject`
 * `java.enterprise.context.RequestScoped`
@@ -704,7 +704,7 @@ Some of the class names are not unique. Eclipse will prompt you with any decisio
 The following screenshots illustrate how you handle these decisions. The Figure description indicates the name of the class you should select.
 
 [[organize_imports_1_image]]
-.javax.ws.rs.core.MediaType
+.jakarta.ws.rs.core.MediaType
 image::gfx/introduction/organize_imports_1.png[]
 
 [[organize_imports_2_image]]
@@ -712,7 +712,7 @@ image::gfx/introduction/organize_imports_1.png[]
 image::gfx/introduction/organize_imports_2.png[]
 
 [[organize_imports_3_image]]
-.javax.ws.rs.Produces
+.jakarta.ws.rs.Produces
 image::gfx/introduction/organize_imports_3.png[]
 
 [[organize_imports_4_image]]
@@ -720,11 +720,11 @@ image::gfx/introduction/organize_imports_3.png[]
 image::gfx/introduction/organize_imports_4.png[]
 
 [[organize_imports_5_image]]
-.javax.inject.Inject
+.jakarta.inject.Inject
 image::gfx/introduction/organize_imports_5.png[]
 
 [[organize_imports_6_image]]
-.javax.enterprise.context.RequestScoped
+.jakarta.enterprise.context.RequestScoped
 image::gfx/introduction/organize_imports_6.png[]
 
 You should end up with these imports:
@@ -733,13 +733,13 @@ You should end up with these imports:
 ---------------------------------------------------------------------------------------------------------
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 import org.jboss.examples.ticketmonster.model.Event;
 ---------------------------------------------------------------------------------------------------------

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 
 public class MultivaluedHashMap<K, V> extends ForwardingMap<K, List<V>> implements MultivaluedMap<K, V> {
 
@@ -15,6 +15,20 @@ public class MultivaluedHashMap<K, V> extends ForwardingMap<K, List<V>> implemen
         return (MultivaluedHashMap<K, V>) EMPTY;
     }
 
+    public boolean equalsIgnoreValueOrder(MultivaluedMap<K,V> omap){
+        return true;
+    }
+    public void addFirst(K key, V value){
+    
+    }
+
+    public  void addAll(K key, List<V> valueList) {
+
+    }
+
+    public void addAll(K key, V... newValues) {
+
+    }
     private Map<K, List<V>> map = new HashMap<K, List<V>>();
 
     @Override

@@ -542,12 +542,12 @@ We shall ensure that the required dependencies are present in the project POM, t
     <dependencies>
         ...
         <dependency>
-            <groupId>org.jboss.spec.javax.ws.rs</groupId>
+            <groupId>org.jboss.spec.jakarta.ws.rs</groupId>
             <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <groupId>org.jboss.spec.jakarta.servlet</groupId>
             <artifactId>jboss-servlet-api_3.0_spec</artifactId>
             <scope>provided</scope>
         </dependency>

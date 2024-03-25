@@ -190,3 +190,34 @@ You can run TicketMonster into a local JBoss EAP 6.3 instance or on OpenShift.
    Note that the `openshift` profile in pom.xml is activated by OpenShift, and causes the WAR build by OpenShift to be copied to the deployments/ directory, and deployed without a context path.
 
    Now you can see the application running at http://APP_NAME-YOUR_DOMAIN.rhcloud.com/.
+
+
+# EAP 8
+
+docker run --name myPostgresDb -p 5432:5432 -e POSTGRES_USER=postgresUser -e POSTGRES_PASSWORD=postgresPW -e POSTGRES_DB=postgresDB -d postgres
+
+Download the postgres jdbc driver from https://jdbc.postgresql.org/download/  e.g. https://jdbc.postgresql.org/download/postgresql-42.5.4.jar
+
+ Copy postgres jar file to modules/org/postgresql/main
+
+create module.xml  -- ensure the filename matches the filename downloaded in the previous step
+
+```
+cat <<EOF > modules/org/postgresql/main/module.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.0" name="org.postgresql">
+ <resources>
+ <resource-root path="postgresql-42.5.4.jar"/>
+ </resources>
+ <dependencies>
+ <module name="javax.api"/>
+ <module name="javax.transaction.api"/>
+ </dependencies>
+</module>
+EOF
+```
+
+/subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgresql)
+
+ data-source add --name=TicketMonsterPostgreSQLDS --jndi-name=java:jboss/datasources/TicketMonsterPostgreSQLDS --driver-name=postgresql --connection-url=jdbc:postgresql://127.0.0.1:5432/postgresDB --user-name=postgresUser --password=postgresPW
+
