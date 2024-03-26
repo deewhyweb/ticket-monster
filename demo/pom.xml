@@ -245,7 +245,7 @@
             <artifactId>jackson-core-asl</artifactId>
             <version>1.4.0</version>
         </dependency>
-        
+
     </dependencies>
 
     <build>

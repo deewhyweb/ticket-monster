@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
-
+import jakarta.persistence.Column;
 /**
  * <p>
  * Represents the state of ticket allocation in a section, for a specific performance.
@@ -108,8 +108,9 @@ public class SectionAllocation implements Serializable {
      */
 
     @Lob
+    @Column(name = "allocated", columnDefinition="BYTEA") 
     private long[][] allocated;
-
+    
     /**
      * <p>
      *     The number of occupied seats in a section. It is updated whenever tickets are sold or canceled.
