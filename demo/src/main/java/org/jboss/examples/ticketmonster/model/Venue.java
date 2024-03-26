@@ -16,6 +16,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * <p>
@@ -29,8 +31,10 @@ import org.hibernate.validator.constraints.NotEmpty;
  * We suppress the warning about not specifying a serialVersionUID, as we are still developing this app, and want the JVM to
  * generate the serialVersionUID for us. When we put this app into production, we'll generate and embed the serialVersionUID
  */
+
 @SuppressWarnings("serial")
 @Entity
+@JsonIgnoreProperties({"sections"})
 public class Venue implements Serializable {
 
     /* Declaration of fields */

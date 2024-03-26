@@ -12,8 +12,10 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotEmpty;
+
 
 /**
  * <p>
@@ -38,7 +40,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 /*
  * We indicate that some properties of the class shouldn't be marshalled in JSON format
  */
-@JsonIgnoreProperties("venue")
+@JsonIgnoreProperties({"venue"})
 public class Section implements Serializable {
 
     /* Declaration of fields */

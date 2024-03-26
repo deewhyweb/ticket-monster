@@ -19,6 +19,7 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.UriInfo;
+import java.io.*; 
 
 /**
  * <p>
@@ -114,6 +115,7 @@ public abstract class BaseEntityService<T> {
         	Integer maxResults = Integer.parseInt(queryParameters.getFirst("maxResults"));
         	query.setMaxResults(maxResults);
         }
+        System.out.println(query.getResultList());
 		return query.getResultList();
     }
 
@@ -169,7 +171,7 @@ public abstract class BaseEntityService<T> {
         final CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
         Root<T> root = criteriaQuery.from(entityClass);
         Predicate condition = criteriaBuilder.equal(root.get("id"), id);
-        criteriaQuery.select(criteriaBuilder.createQuery(entityClass).getSelection()).where(condition);
+        criteriaQuery.select(criteriaQuery.getSelection()).where(condition);
         return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
 }
