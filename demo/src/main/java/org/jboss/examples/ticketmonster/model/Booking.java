@@ -64,7 +64,6 @@ public class Booking implements Serializable {
      */
     @OneToMany(fetch = EAGER, cascade = ALL)
     @JoinColumn
-    @NotEmpty
     @Valid
     private Set<Ticket> tickets = new HashSet<Ticket>();
 

@@ -19,6 +19,7 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.Column;
+import java.io.*; 
 /**
  * <p>
  * Represents the state of ticket allocation in a section, for a specific performance.

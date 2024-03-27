@@ -13,7 +13,7 @@ import org.jboss.examples.ticketmonster.model.SeatAllocationException;
 import org.jboss.examples.ticketmonster.model.Section;
 import org.jboss.examples.ticketmonster.model.SectionAllocation;
 import org.jboss.examples.ticketmonster.service.AllocatedSeats;
-
+import java.io.*; 
 /**
  *
  * Helper service for allocation seats.
@@ -27,8 +27,11 @@ public class SeatAllocationService {
     EntityManager entityManager;
 
     public AllocatedSeats allocateSeats(Section section, Performance performance, int seatCount, boolean contiguous) {
+        System.out.println("sa1");
         SectionAllocation sectionAllocation = retrieveSectionAllocationExclusively(section, performance);
+        System.out.println("sa2");
         List<Seat> seats = sectionAllocation.allocateSeats(seatCount, contiguous);
+        System.out.println("sa3");
         return new AllocatedSeats(sectionAllocation, seats);
     }
 
@@ -55,6 +58,7 @@ public class SeatAllocationService {
         } catch (NoResultException noSectionEx) {
             // Create the SectionAllocation since it doesn't exist
             sectionAllocationStatus = new SectionAllocation(performance, section);
+            System.out.println("section allocation");
             entityManager.persist(sectionAllocationStatus);
             entityManager.flush();
         }
