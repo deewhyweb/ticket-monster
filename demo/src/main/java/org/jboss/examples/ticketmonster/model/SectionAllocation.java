@@ -109,7 +109,7 @@ public class SectionAllocation implements Serializable {
      */
 
     @Lob
-    @Column(name = "allocated", columnDefinition="BYTEA") 
+    @Column(name = "allocated", columnDefinition="oid") 
     private long[][] allocated;
     
     /**

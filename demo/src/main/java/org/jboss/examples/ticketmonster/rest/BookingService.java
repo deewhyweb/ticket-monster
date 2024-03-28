@@ -175,12 +175,12 @@ public class BookingService extends BaseEntityService<Booking> {
                 }
                 // try to allocate seats
           
-                // AllocatedSeats allocatedSeats = seatAllocationService.allocateSeats(section, performance, totalTicketsRequestedPerSection, true);
-                // if (allocatedSeats.getSeats().size() == totalTicketsRequestedPerSection) {
-                //     seatsPerSection.put(section, allocatedSeats);
-                // } else {
-                //     failedSections.add(section);
-                // }
+                AllocatedSeats allocatedSeats = seatAllocationService.allocateSeats(section, performance, totalTicketsRequestedPerSection, true);
+                if (allocatedSeats.getSeats().size() == totalTicketsRequestedPerSection) {
+                    seatsPerSection.put(section, allocatedSeats);
+                } else {
+                    failedSections.add(section);
+                }
             }
             if (failedSections.isEmpty()) {
                
