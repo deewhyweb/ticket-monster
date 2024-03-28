@@ -221,3 +221,13 @@ EOF
 
  data-source add --name=TicketMonsterPostgreSQLDS --jndi-name=java:jboss/datasources/TicketMonsterPostgreSQLDS --driver-name=postgresql --connection-url=jdbc:postgresql://127.0.0.1:5432/postgresDB --user-name=postgresUser --password=postgresPW
 
+ create table SectionAllocation (id  bigserial not null, allocated oid, occupiedCount int4 not null, version int8 not null, performance_id int8 not null, section_id int8 not null, primary key (id))
+
+
+    Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: pri
+mary] Unable to build Hibernate SessionFactory
+    Caused by: org.hibernate.MappingException: Error creating SQL create comma
+nds for table : SectionAllocation
+    Caused by: org.hibernate.MappingException: Unable to determine SQL type na
+me for column 'allocated' of table 'SectionAllocation' because there is no typ
+e mapping for org.hibernate.type.SqlTypes code: 2003 (ARRAY)"}}}}
