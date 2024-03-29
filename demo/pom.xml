@@ -98,7 +98,7 @@
             line below to use version 1.0.4.Final-redhat-9 which is a release certified 
             to work with JBoss EAP 6.2. It requires you have access to the JBoss EAP 6.2
             maven repository. -->
-            <version.server.bom>8.0.0.GA-redhat-00009</version.server.bom>
+            <version.server.bom>7.4.0.GA</version.server.bom>
         <buildhelper.plugin.version>1.7</buildhelper.plugin.version>
     </properties>
     <dependencyManagement>
@@ -106,7 +106,7 @@
             <!-- importing the ee-with-tools BOM adds specs and other useful artifacts as managed dependencies -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-eap-ee-with-tools</artifactId>
+                <artifactId>jboss-eap-jakartaee8-with-tools</artifactId>
                 <version>${version.server.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -141,16 +141,16 @@
         <!-- Import the Common Annotations API (JSR-250), we use provided 
             scope as the API is included in JBoss EAP -->
             <dependency>
-                <groupId>jakarta.annotation</groupId>
-                <artifactId>jakarta.annotation-api</artifactId>
+                <groupId>org.jboss.spec.javax.annotation</groupId>
+                <artifactId>jboss-annotations-api_1.3_spec</artifactId>
                 <scope>provided</scope>
             </dependency>
 
         <!-- Import the JAX-RS API, we use provided scope as the API is included 
             in JBoss EAP -->
             <dependency>
-                <groupId>jakarta.ws.rs</groupId>
-                <artifactId>jakarta.ws.rs-api</artifactId>
+                <groupId>org.jboss.spec.javax.ws.rs</groupId>
+                <artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
                 <scope>provided</scope>
             </dependency>
     
@@ -166,16 +166,16 @@
         <!-- Import the EJB API, we use provided scope as the API is included 
             in JBoss EAP -->
             <dependency>
-                <groupId>jakarta.ejb</groupId>
-                <artifactId>jakarta.ejb-api</artifactId>
+                <groupId>org.jboss.spec.javax.ejb</groupId>
+                <artifactId>jboss-ejb-api_3.2_spec</artifactId>
                 <scope>provided</scope>
             </dependency>
 
         <!-- Import the Servlet API, we use provided scope as the API is 
             included in JBoss EAP -->
         <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_4.0_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -184,7 +184,7 @@
         <!-- Hibernate Validator is shipped in JBoss EAP -->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator-cdi</artifactId>
+            <artifactId>hibernate-validator</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -194,7 +194,7 @@
         <!-- Annotation processor to generate the JPA 2.0 metamodel classes 
             for typesafe criteria queries -->
         <dependency>
-            <groupId>org.hibernate.orm</groupId>
+            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <scope>provided</scope>
         </dependency>

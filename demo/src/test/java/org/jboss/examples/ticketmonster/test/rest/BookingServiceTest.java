@@ -7,9 +7,9 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.inject.Inject;
-import jakarta.persistence.NoResultException;
-import jakarta.ws.rs.core.MultivaluedMap;
+import javax.inject.Inject;
+import javax.persistence.NoResultException;
+import javax.ws.rs.core.MultivaluedMap;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;

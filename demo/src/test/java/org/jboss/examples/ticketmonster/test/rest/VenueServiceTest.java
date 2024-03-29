@@ -5,8 +5,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import jakarta.inject.Inject;
-import jakarta.ws.rs.core.MultivaluedMap;
+import javax.inject.Inject;
+import javax.ws.rs.core.MultivaluedMap;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
