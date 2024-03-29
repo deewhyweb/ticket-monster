@@ -17,6 +17,7 @@ import jakarta.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
 /**
  * <p>
  * A performance represents a single instance of a show.
