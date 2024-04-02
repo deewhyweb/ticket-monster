@@ -5,9 +5,7 @@ import org.hibernate.usertype.UserType;
 
 import java.io.Serializable;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class SectionAllocationArrayType implements UserType<Long[][]> {
   @Override
@@ -57,7 +55,7 @@ public class SectionAllocationArrayType implements UserType<Long[][]> {
     if (st != null) {
       if (longs != null) {
         Array array = sharedSessionContractImplementor.getJdbcConnectionAccess().obtainConnection()
-          .createArrayOf("bigint[]", longs);
+          .createArrayOf("bigint", longs);
         st.setArray(i, array);
       } else {
         st.setNull(i, Types.ARRAY);
@@ -66,12 +64,18 @@ public class SectionAllocationArrayType implements UserType<Long[][]> {
   }
 
   @Override
-  public Long[][] deepCopy(Long[][] longs) {
-    ArrayList<Long[]> copy = new ArrayList<>();
-    for (int i = 0; i < longs.length; i++) {
-      copy.add((Long[])Arrays.asList(longs[i]).toArray());
+  public Long[][] deepCopy(Long[][] original) {
+    if (original != null) {
+      final Long[][] result = new Long[original.length][];
+      for (int i = 0; i < original.length; i++) {
+        result[i] = Arrays.copyOf(original[i], original[i].length);
+        // For Java versions prior to Java 6 use the next:
+        // System.arraycopy(original[i], 0, result[i], 0, original[i].length);
     }
-    return (Long[][])copy.toArray();
+    return result;
+    } else {
+      return null;
+    }
   }
 
   @Override
